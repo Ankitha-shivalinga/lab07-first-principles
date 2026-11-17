@@ -118,9 +118,10 @@ Each run changes one setting from the main run. Curves for every run are in
 
 ![Validation loss for every run](reports/experiments_val_loss.png)
 
-- **main: fine.** Training and validation loss fall together. The best epoch
-  is 143 of 150, so the run was still slowly improving at the end. The gap
-  between training and validation loss stays roughly constant.
+- **main: fine.** Training and validation loss fall together, in two stages. The
+  best epoch is 143 of 150, so the run was still slowly improving at the end. A
+  small gap opens between training and validation loss after about epoch 70, but
+  the validation loss keeps falling, so it is not overfitting yet.
 - **lr_too_small: underfitting.** With a learning rate 100 times smaller the
   steps are tiny. After 150 epochs both losses are still about 180–190, far above
   every other run, and the validation MAE (8.56) is no better than the linear
@@ -132,12 +133,13 @@ Each run changes one setting from the main run. Curves for every run are in
   than at epoch 75, and the curve jumps up and down from epoch to epoch because
   each step overshoots the minimum.
 - **too_wide: overfitting, rescued by early stopping.** About a million weights
-  for 3,600 rows. The training loss keeps falling to 7.7, the lowest of any run,
-  while the validation loss reaches its best (14.8) at epoch 48 and then climbs
-  back to 17.6, so the gap between the curves widens. The network is starting to
+  for 3,600 rows. The validation loss drops much faster than in the main run and
+  reaches its best (14.8) at epoch 48. After that it stops improving and only
+  bounces around, ending at 17.6, while the training loss keeps falling to 7.7,
+  the lowest of any run. The widening gap means the network is starting to
   memorize the random noise in the counts. Because `fit` puts back the epoch-48
   weights, this run still has the best validation MAE (2.57), which is why it was
-  chosen. Without that, its final weights would be no better than the main run.
+  chosen.
 
 ## Limitations
 
