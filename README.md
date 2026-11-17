@@ -93,17 +93,15 @@ only beats the mean by about one bike.
 
 ![Learning curves](reports/learning_curves.png)
 
-Both losses fall steeply in the first few epochs as the network learns the overall
-level of rentals, then more slowly as it learns the hourly shape. The best
-validation loss (16.77) comes at epoch 143, near the end, so the main run was
-still improving slowly and was not overfitting yet. The training loss (11.5 at the
-end) stays below the validation loss (17.2): the network fits the rows it trains
-on a little more closely than new rows, but the gap is steady rather than
-growing.
-
-The network beats the linear model by about six bikes per hour, more than three
-times smaller error, because its ReLU layers can bend to follow the commute peaks,
-the weekend hump and the temperature curve.
+The curves fall in two stages. In the first ten epochs both losses drop fast as
+the network learns the overall level of rentals. They then flatten until about
+epoch 45, and drop steeply a second time between epochs 45 and 80, which is when
+the network learns the commute peaks and the weekend hump. After that both curves
+improve slowly. The best validation loss (16.77) comes at epoch 143, near the end,
+so the main run was not overfitting yet. From about epoch 70 a gap opens between
+the training loss (11.5 at the end) and the validation loss (17.2): the network
+fits the rows it trains on a little more closely than new rows, but the gap grows
+only slowly and the validation loss is still flat or falling.
 
 ## Experiments
 
